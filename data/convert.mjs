@@ -52,9 +52,12 @@ for (const file of files) {
       let hasValue = false;
       for (const { index, key } of validCols) {
         let v = row[index] !== undefined ? row[index] : null;
-        // 枚举翻译：如果该列在枚举映射表中，尝试中文→英文翻译
-        if (v != null && enumMap[key]) {
-          v = enumMap[key][String(v)] ?? v;
+        // 枚举翻译：去掉 _N 后缀后查表，支持 location_type_1 匹配 location_type
+        if (v != null) {
+          const baseKey = key.replace(/_\d+$/, '');
+          if (enumMap[baseKey]) {
+            v = enumMap[baseKey][String(v)] ?? v;
+          }
         }
         obj[key] = v;
         if (v !== null && v !== '') hasValue = true;

@@ -3,7 +3,7 @@
     "id": 1,
     "name": "稀落的灌木丛",
     "exploration_max": 100,
-    "location_type_1": "打坐",
+    "location_type_1": "cultivate",
     "location_value_1": 10,
     "action_skill_id_1": 1,
     "action_time_per_cycle_1": 5,
