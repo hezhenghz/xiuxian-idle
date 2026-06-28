@@ -1,0 +1,10 @@
+[
+  {
+    "initial_realm_id": 1,
+    "initial_level_id": 1,
+    "initial_location_id": 1,
+    "initial_life_skill": 1,
+    "initial_battle_skill": 1,
+    "initial_equipment": null
+  }
+]

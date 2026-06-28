@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "凡人",
+    "required_skills": null,
+    "required_items": null,
+    "optional_items": null,
+    "base_success_rate": null,
+    "failure_exp_loss_pct": null
+  },
+  {
+    "id": 2,
+    "name": "炼气",
+    "required_skills": null,
+    "required_items": null,
+    "optional_items": null,
+    "base_success_rate": null,
+    "failure_exp_loss_pct": null
+  },
+  {
+    "id": 3,
+    "name": "筑基",
+    "required_skills": null,
+    "required_items": null,
+    "optional_items": null,
+    "base_success_rate": null,
+    "failure_exp_loss_pct": null
+  },
+  {
+    "id": 4,
+    "name": "金丹",
+    "required_skills": null,
+    "required_items": null,
+    "optional_items": null,
+    "base_success_rate": null,
+    "failure_exp_loss_pct": null
+  },
+  {
+    "id": 5,
+    "name": "元婴",
+    "required_skills": null,
+    "required_items": null,
+    "optional_items": null,
+    "base_success_rate": null,
+    "failure_exp_loss_pct": null
+  }
+]

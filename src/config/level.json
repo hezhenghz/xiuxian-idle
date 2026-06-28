@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "name": "凡人1",
+    "realm_id": 1,
+    "layer": 1,
+    "cultivation_needed": 50,
+    "base_hp": 100,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 2,
+    "name": "凡人2",
+    "realm_id": 1,
+    "layer": 2,
+    "cultivation_needed": 120,
+    "base_hp": 110,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 3,
+    "name": "凡人3",
+    "realm_id": 1,
+    "layer": 3,
+    "cultivation_needed": 3000,
+    "base_hp": 120,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 4,
+    "name": "凡人4",
+    "realm_id": 1,
+    "layer": 4,
+    "cultivation_needed": 4000,
+    "base_hp": 130,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 5,
+    "name": "凡人5",
+    "realm_id": 1,
+    "layer": 5,
+    "cultivation_needed": 5000,
+    "base_hp": 140,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 6,
+    "name": "凡人6",
+    "realm_id": 1,
+    "layer": 6,
+    "cultivation_needed": 6000,
+    "base_hp": 150,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 7,
+    "name": "凡人7",
+    "realm_id": 1,
+    "layer": 7,
+    "cultivation_needed": 7000,
+    "base_hp": 160,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 8,
+    "name": "凡人8",
+    "realm_id": 1,
+    "layer": 8,
+    "cultivation_needed": 8000,
+    "base_hp": 170,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 9,
+    "name": "凡人9",
+    "realm_id": 1,
+    "layer": 9,
+    "cultivation_needed": 9000,
+    "base_hp": 180,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 10,
+    "name": "凡人10",
+    "realm_id": 1,
+    "layer": 10,
+    "cultivation_needed": 10000,
+    "base_hp": 190,
+    "base_mp": 0,
+    "item_cost": null
+  },
+  {
+    "id": 11,
+    "name": "炼气1",
+    "realm_id": 2,
+    "layer": 1,
+    "cultivation_needed": 11000,
+    "base_hp": 200,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 12,
+    "name": "炼气2",
+    "realm_id": 2,
+    "layer": 2,
+    "cultivation_needed": 12000,
+    "base_hp": 210,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 13,
+    "name": "炼气3",
+    "realm_id": 2,
+    "layer": 3,
+    "cultivation_needed": 13000,
+    "base_hp": 220,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 14,
+    "name": "炼气4",
+    "realm_id": 2,
+    "layer": 4,
+    "cultivation_needed": 14000,
+    "base_hp": 230,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 15,
+    "name": "炼气5",
+    "realm_id": 2,
+    "layer": 5,
+    "cultivation_needed": 15000,
+    "base_hp": 240,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 16,
+    "name": "炼气6",
+    "realm_id": 2,
+    "layer": 6,
+    "cultivation_needed": 16000,
+    "base_hp": 250,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 17,
+    "name": "炼气7",
+    "realm_id": 2,
+    "layer": 7,
+    "cultivation_needed": 17000,
+    "base_hp": 260,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 18,
+    "name": "炼气8",
+    "realm_id": 2,
+    "layer": 8,
+    "cultivation_needed": 18000,
+    "base_hp": 270,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 19,
+    "name": "炼气9",
+    "realm_id": 2,
+    "layer": 9,
+    "cultivation_needed": 19000,
+    "base_hp": 280,
+    "base_mp": 20,
+    "item_cost": null
+  },
+  {
+    "id": 20,
+    "name": "炼气10",
+    "realm_id": 2,
+    "layer": 10,
+    "cultivation_needed": 20000,
+    "base_hp": 290,
+    "base_mp": 20,
+    "item_cost": null
+  }
+]

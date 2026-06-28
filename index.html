@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>修仙放置</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="error-banner" style="display:none;position:fixed;top:0;left:0;right:0;background:#8b0000;color:#fff;padding:0.5rem;z-index:999;font-size:0.8rem;white-space:pre-wrap;max-height:40vh;overflow-y:auto;"></div>
+  <script>
+    window.onerror = function(msg, file, line, col, err) {
+      var el = document.getElementById('error-banner');
+      el.style.display = 'block';
+      el.innerText = (err && err.stack) ? err.stack : (msg + '\\n  at ' + file + ':' + line + ':' + col);
+      return false;
+    };
+  </script>
+  <div id="app">
+    <!-- 存档选择界面 -->
+    <div v-if="state.view === 'saveSelect'" class="save-select">
+      <h1>修仙放置</h1>
+      <div class="save-slots">
+        <div
+          v-for="(slot, i) in state.saveSlots"
+          :key="i"
+          class="save-slot"
+          @click="selectSlot(i)"
+        >
+          <template v-if="slot && slot.name">
+            <div class="slot-name">{{ slot.name }}</div>
+            <div class="slot-info">{{ slot.realm }} · {{ slot.playTime }}</div>
+            <div class="slot-actions">
+              <button class="btn-delete-save" @click.stop="deleteSlot(i)">删除</button>
+            </div>
+          </template>
+          <template v-else-if="slot && !slot.name">
+            <div class="slot-empty">损坏的存档</div>
+            <button class="btn-delete-save" @click.stop="deleteSlot(i)">删除</button>
+          </template>
+          <template v-else>
+            <div class="slot-empty">空存档槽</div>
+            <div class="slot-hint">点击创建角色</div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- 创建角色界面 -->
+    <div v-if="state.view === 'createChar'" class="create-char">
+      <h2>创建角色</h2>
+      <input
+        v-model="state.charName"
+        placeholder="输入角色名"
+        maxlength="8"
+        @keyup.enter="confirmCreate"
+      />
+      <button @click="confirmCreate" :disabled="!state.charName.trim()">
+        踏入修仙之路
+      </button>
+    </div>
+
+    <!-- 主游戏界面 -->
+    <div v-if="state.view === 'game' && state.gameState" class="game-container">
+      <!-- A-D, 1-4行: 主角信息 -->
+      <div class="char-info">
+        <div class="char-avatar">{{ state.gameState.player.name }}</div>
+        <div class="char-realm">{{ getRealmDisplay(state.gameState.player.realmId) }}</div>
+
+        <!-- 生命条 -->
+        <div class="char-stat-bar">
+          <div class="stat-label hp-text">生命 {{ state.gameState.player.hp }}/{{ state.gameState.player.maxHp }}</div>
+          <div class="stat-bar-bg">
+            <div class="stat-bar-fill hp-fill" :style="{ width: (state.gameState.player.hp / state.gameState.player.maxHp * 100) + '%' }"></div>
+          </div>
+        </div>
+
+        <!-- 灵力条 -->
+        <div class="char-stat-bar">
+          <div class="stat-label mp-text">灵力 {{ state.gameState.player.mp }}/{{ state.gameState.player.maxMp }}</div>
+          <div class="stat-bar-bg">
+            <div class="stat-bar-fill mp-fill" :style="{ width: (state.gameState.player.mp / state.gameState.player.maxMp * 100) + '%' }"></div>
+          </div>
+        </div>
+
+        <!-- 行为读条 -->
+        <div class="char-stat-bar" v-if="state.gameState.currentAction">
+          <div class="stat-label">{{ getActionName(state.gameState.currentAction) }}</div>
+          <div class="stat-bar-bg">
+            <div class="stat-bar-fill action-fill" :style="{ width: (state.gameState.currentAction.progress * 100) + '%' }"></div>
+          </div>
+        </div>
+
+        <!-- 突破区 -->
+        <div class="breakthrough-area">
+          <div v-if="state.btType === 'minor'" class="bt-row">
+            <span class="bt-text">修为已满，可提升修为等级</span>
+            <button class="bt-btn" @click="doMinorBreakthrough">升级</button>
+          </div>
+          <div v-else-if="state.btType === 'major'" class="bt-row">
+            <span class="bt-text">修为等级已达上限，可突破境界</span>
+            <button class="bt-btn" @click="doMajorBreakthroughFlow">突破</button>
+          </div>
+          <div v-else class="bt-text idle">修炼中…</div>
+        </div>
+      </div>
+
+      <!-- A-D, 5-8行: 主导航 -->
+      <div class="main-nav">
+        <div class="nav-item" :class="{ active: state.activeNav === 'map' }" @click="state.activeNav = 'map'">地图</div>
+        <div class="nav-item" :class="{ active: state.activeNav === 'clan' }" @click="state.activeNav = 'clan'">宗门</div>
+        <div class="nav-item" :class="{ active: state.activeNav === 'cave' }" @click="state.activeNav = 'cave'">洞府</div>
+        <div class="nav-item" :class="{ active: state.activeNav === 'battle_skill' }" @click="state.activeNav = 'battle_skill'">战斗技能</div>
+        <div class="nav-item" :class="{ active: state.activeNav === 'life_skill' }" @click="state.activeNav = 'life_skill'">生活技能</div>
+        <div class="nav-item" :class="{ active: state.activeNav === 'resource' }" @click="state.activeNav = 'resource'">资源背包</div>
+        <div class="nav-item" :class="{ active: state.activeNav === 'journal' }" @click="state.activeNav = 'journal'">图鉴</div>
+      </div>
+
+      <!-- E-P, 1-8行: 内容栏 -->
+      <div class="content-area">
+
+        <!-- 引导文字，悬浮 -->
+        <div v-if="state.guidance" class="guidance">{{ state.guidance }}</div>
+
+        <!-- 地图内容 -->
+        <div v-if="state.activeNav === 'map'" class="map-layers">
+          <div class="map-continent" v-if="mapState.currentLand">
+            <div class="map-title">{{ mapState.currentLand.name }}</div>
+            <div class="map-zones">
+              <div class="map-zone" v-for="zone in mapState.zones" :key="zone.id"
+                :class="{ locked: !zone.unlocked, active: mapState.activeZone?.id === zone.id }"
+                @click="selectZone(zone)"
+              >
+                <span>{{ zone.name }}</span>
+                <span v-if="!zone.unlocked" class="lock-icon">🔒</span>
+              </div>
+            </div>
+          </div>
+          <div class="map-locations" v-if="mapState.activeZone">
+            <div class="map-title-sm">{{ mapState.activeZone.name }}</div>
+            <div class="location-list">
+              <div class="map-location" v-for="loc in mapState.locations" :key="loc.id"
+                :class="{ current: state.gameState?.currentAction?.locationId === loc.id }"
+                @click="clickLocation(loc.id)"
+              >
+                <span>{{ loc.name }}</span>
+                <span class="loc-explore" v-if="loc.exploration_max > 0">
+                  {{ state.gameState?.exploration[loc.id] || 0 }}/{{ loc.exploration_max }}
+                </span>
+                <span class="loc-action-tags">
+                  <span v-for="(a, i) in loc.actions" :key="i"
+                    :class="{ locked: (state.gameState?.exploration[loc.id] || 0) < a.unlock_exploration }">
+                    {{ a.tag }}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 宗门/洞府占位 -->
+        <div v-if="state.activeNav === 'clan'" class="placeholder">宗门 — 以后开发</div>
+        <div v-if="state.activeNav === 'cave'" class="placeholder">洞府 — 以后开发</div>
+
+        <!-- 战斗技能 -->
+        <div v-if="state.activeNav === 'battle_skill'" class="skill-list">
+          <div class="section-title">战斗技能</div>
+          <div class="skill-item" v-for="id in state.gameState.techniques" :key="id">
+            {{ id }}
+          </div>
+          <div v-if="!state.gameState.techniques.length" class="entry empty">无</div>
+        </div>
+
+        <!-- 生活技能 -->
+        <div v-if="state.activeNav === 'life_skill'" class="skill-list">
+          <div class="section-title">生活技能</div>
+          <div class="skill-item"
+            v-for="(skill, id) in state.gameState.skills"
+            :key="id"
+          >
+            <div class="skill-name">{{ id }}</div>
+            <div class="skill-level">Lv.{{ skill.level }}</div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" :style="{ width: skillLevelProgress(skill) + '%' }"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 资源背包 -->
+        <div v-if="state.activeNav === 'resource'" class="content-panel">
+          <div class="section-title">资源</div>
+          <div class="entry">
+            <div>修为 {{ state.cultCurrent }}/{{ state.cultNeeded }}</div>
+            <div class="stat-bar-bg" style="margin-top:2px">
+              <div class="stat-bar-fill hp-fill" :style="{ width: state.cultPct + '%' }"></div>
+            </div>
+          </div>
+          <div class="entry">灵石: {{ state.gameState.resources['spirit_stone'] || 0 }}</div>
+          <div class="section-title" style="margin-top:1rem">背包</div>
+          <div v-for="(qty, id) in state.gameState.items" :key="id" class="entry">
+            {{ id }}: {{ qty }}
+          </div>
+          <div v-if="!Object.keys(state.gameState.items).length" class="entry empty">背包空</div>
+        </div>
+
+        <!-- 图鉴 -->
+        <div v-if="state.activeNav === 'journal'" class="content-panel">
+          <div class="section-title">已发现物品</div>
+          <div v-for="id in state.gameState.discovered.items" :key="id" class="entry">{{ id }}</div>
+          <div v-if="!state.gameState.discovered.items.length" class="entry empty">无</div>
+          <div class="section-title" style="margin-top:0.5rem">已击败敌人</div>
+          <div v-for="id in state.gameState.discovered.enemies" :key="id" class="entry">{{ id }}</div>
+          <div v-if="!state.gameState.discovered.enemies.length" class="entry empty">无</div>
+        </div>
+      </div>
+
+      <!-- 9行: 状态栏 -->
+      <div class="status-bar">
+        <div class="status-row">
+          <span>境界: {{ getRealmDisplay(state.gameState.player.realmId) }}</span>
+          <span>修为 {{ state.cultCurrent }}/{{ state.cultNeeded }}</span>
+          <span>灵石: {{ state.gameState.resources['spirit_stone'] || 0 }}</span>
+          <button @click="backToMenu" class="btn-back">返回主菜单</button>
+        </div>
+        <div class="stat-bar-bg">
+          <div class="stat-bar-fill hp-fill" :style="{ width: state.cultPct + '%' }"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

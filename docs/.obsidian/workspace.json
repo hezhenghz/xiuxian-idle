@@ -1,0 +1,213 @@
+{
+  "main": {
+    "id": "3e3db5536c0ada54",
+    "type": "split",
+    "children": [
+      {
+        "id": "9a28d5258c7c908a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e9d19adbb7374ed6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "design/04-非传统修仙道途参考.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "04-非传统修仙道途参考"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d35df90216b0b867",
+    "type": "split",
+    "children": [
+      {
+        "id": "73f0324c2d817d61",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b7b27b4dc933b286",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "e63c7e59258830f6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "56ce34cc93ca303d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "2cba7135db14360c",
+    "type": "split",
+    "children": [
+      {
+        "id": "01aeee926437e140",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "738bd43dbdf45e9a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "design/01-核心概念设计.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "01-核心概念设计 的反向链接列表"
+            }
+          },
+          {
+            "id": "2750a1253ee5973c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "design/01-核心概念设计.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "01-核心概念设计 的出链列表"
+            }
+          },
+          {
+            "id": "3e8ed661dbead349",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "3a452310652802fa",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "cf5dec2922f7f9dd",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "design/01-核心概念设计.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "01-核心概念设计 的大纲"
+            }
+          },
+          {
+            "id": "aa5f1e805247b567",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 738.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
+      "realclaudian:Open Claudian": false
+    }
+  },
+  "active": "aa5f1e805247b567",
+  "lastOpenFiles": [
+    "chat-logs/2026-06-08-技能分类与交互设计.md",
+    "chat-logs/2026-06-07-世界观与技能体系.md",
+    "chat-logs/2026-06-07-世界观与技能体系.md.tmp.8704.3a2e3bc5fec1",
+    "design/03-修仙文学市场调研.md",
+    "chat-logs/2026-05-31-投资人六问与市场调研.md",
+    "design/04-非传统修仙道途参考.md",
+    "design/01-核心概念设计.md",
+    "design/02-竞品分析.md",
+    "chat-logs/2026-05-30-项目启动与核心概念.md",
+    "chat-logs/2026-05-31-Melvor分析与追加设计.md",
+    "chat-logs/2026-05-30-项目启动与核心概念.md.tmp.23432.4197a9ab435b",
+    "chat-logs",
+    "design"
+  ]
+}

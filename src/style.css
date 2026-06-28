@@ -1,0 +1,449 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1a1a2e;
+  color: #e0d8c0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* ====== 存档选择 ====== */
+.save-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 2rem;
+}
+.save-select h1 {
+  font-size: 2.5rem;
+  color: #c9a84c;
+}
+.save-slots {
+  display: flex;
+  gap: 1rem;
+}
+.save-slot {
+  width: 200px;
+  height: 260px;
+  border: 2px solid #c9a84c;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.save-slot:hover {
+  background: rgba(201, 168, 76, 0.15);
+}
+.slot-name { font-size: 1.2rem; color: #c9a84c; }
+.slot-info { font-size: 0.8rem; color: #888; margin-top: 0.5rem; }
+.slot-empty { font-size: 1rem; color: #666; }
+.slot-hint { font-size: 0.75rem; color: #555; margin-top: 0.5rem; }
+.slot-actions { margin-top: 0.5rem; }
+.btn-delete-save {
+  padding: 0.2rem 0.6rem;
+  background: #8b0000;
+  color: #ccc;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+/* ====== 创建角色 ====== */
+.create-char {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+}
+.create-char h2 { color: #c9a84c; }
+.create-char input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: #16213e;
+  border: 1px solid #c9a84c;
+  color: #e0d8c0;
+  border-radius: 4px;
+  text-align: center;
+}
+.create-char button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  background: #c9a84c;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.create-char button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ====== 游戏容器 ====== */
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: 100%;
+  height: 100%;
+  gap: 2px;
+  padding: 2px;
+}
+
+/* ====== 主角信息 (A-D, 1-4) ====== */
+.char-info {
+  grid-column: 1 / 5;
+  grid-row: 1 / 5;
+  background: #16213e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 0.3rem;
+  overflow: hidden;
+}
+.char-avatar {
+  font-size: 1rem;
+  color: #c9a84c;
+}
+.char-realm {
+  font-size: 0.75rem;
+  color: #888;
+}
+.char-info .bars {
+  width: 100%;
+  font-size: 0.7rem;
+}
+.char-info .hp-bar { color: #e74c3c; }
+.char-info .mp-bar { color: #3498db; }
+.char-info .progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+}
+.char-info .progress-fill {
+  height: 100%;
+  background: #4ecca3;
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+.action-label {
+  font-size: 0.7rem;
+  color: #888;
+}
+
+/* ====== 角色状态条 ====== */
+.char-stat-bar {
+  width: 100%;
+}
+.stat-label {
+  font-size: 0.65rem;
+  margin-bottom: 1px;
+}
+.hp-text { color: #2ecc71; }
+.mp-text { color: #3498db; }
+.stat-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+}
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.2s;
+}
+.hp-fill { background: #2ecc71; }
+.mp-fill { background: #3498db; }
+.action-fill { background: #c9a84c; }
+
+/* ====== 突破区域 ====== */
+.breakthrough-area {
+  width: 100%;
+  margin-top: 0.3rem;
+}
+.bt-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.bt-text {
+  font-size: 0.65rem;
+  flex: 1;
+}
+.bt-text.idle {
+  color: #555;
+}
+.bt-btn {
+  padding: 0.15rem 0.5rem;
+  background: #c9a84c;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+/* ====== 主导航 (A-D, 5-8) ====== */
+.main-nav {
+  grid-column: 1 / 5;
+  grid-row: 5 / 9;
+  background: #16213e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  color: #888;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: #1a2744; color: #ccc; }
+.nav-item.active {
+  color: #c9a84c;
+  border-left-color: #c9a84c;
+  background: #1a2744;
+}
+
+/* ====== 内容栏 (E-P, 1-8) ====== */
+.content-area {
+  grid-column: 6 / -1;
+  grid-row: 1 / 9;
+  background: #0f3460;
+  border: 1px solid #333;
+  border-radius: 4px;
+  position: relative;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+/* ====== 引导文字（悬浮） ====== */
+.guidance {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: #c9a84c;
+  padding: 0.25rem 1rem;
+  font-size: 0.85rem;
+  text-align: center;
+  z-index: 10;
+}
+
+/* ====== 状态栏 (全宽, 9行) ====== */
+.status-bar {
+  grid-column: 1 / -1;
+  grid-row: 9;
+  background: #16213e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem 4px;
+  font-size: 0.85rem;
+  gap: 2px;
+}
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.btn-back {
+  padding: 0.2rem 0.8rem;
+  background: #444;
+  color: #ccc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ====== 弹窗 ====== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal {
+  background: #16213e;
+  border: 1px solid #c9a84c;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 300px;
+  color: #e0d8c0;
+}
+.modal h3 { color: #c9a84c; margin-bottom: 0.5rem; }
+.modal p { margin: 0.3rem 0; }
+.text-warn { color: #e74c3c; }
+.btn-action {
+  margin-top: 0.8rem;
+  padding: 0.5rem 1.5rem;
+  background: #c9a84c;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-close {
+  margin-top: 0.5rem;
+  padding: 0.3rem 1rem;
+  background: #444;
+  color: #ccc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ====== 技能条目 ====== */
+.skill-list { font-size: 0.8rem; }
+.skill-item {
+  margin-bottom: 0.3rem;
+}
+.skill-name { color: #aaa; }
+.skill-level { color: #c9a84c; }
+.skill-bar {
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  margin-top: 2px;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: #c9a84c;
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* ====== 内容面板通用 ====== */
+.content-panel { font-size: 0.85rem; }
+.section-title {
+  color: #c9a84c;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+.entry {
+  padding: 0.15rem 0;
+  font-size: 0.8rem;
+}
+.entry.empty { color: #555; }
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* ====== 地图 ====== */
+.map-layers {
+  display: flex;
+  height: 100%;
+  gap: 1rem;
+}
+.map-continent { flex: 1; }
+.map-title {
+  font-size: 1rem;
+  color: #c9a84c;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+.map-title-sm {
+  font-size: 0.85rem;
+  color: #c9a84c;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+.map-zones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.map-zone {
+  padding: 0.4rem 0.6rem;
+  background: #16213e;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+.map-zone:hover { background: #1a2744; }
+.map-zone.active { border: 1px solid #c9a84c; }
+.map-zone.locked { opacity: 0.5; cursor: default; }
+.lock-icon { font-size: 0.75rem; }
+.map-locations { flex: 1; }
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.map-location {
+  padding: 0.4rem 0.6rem;
+  background: #16213e;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+.map-location:hover { background: #1a2744; }
+.map-location.current { border: 1px solid #4ecca3; }
+.loc-explore {
+  color: #6ab0de;
+  font-size: 0.7rem;
+}
+.loc-action-tags {
+  display: flex;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+}
+.loc-action-tags span {
+  color: #ccc;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.3rem;
+  background: #333;
+  border-radius: 3px;
+}
+.loc-action-tags span.locked {
+  color: #555;
+  background: #222;
+}

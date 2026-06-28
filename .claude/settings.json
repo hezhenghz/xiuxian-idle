@@ -1,0 +1,65 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f e:/Proj/xiuxian-idle/.claude/terminology-watch.json)",
+      "Bash(rm -f e:/Proj/xiuxian-idle/.claude/terminology-watch.json && printf '{\"prompt\":\"关于丹药系统的设计\", \"session_id\":\"t1\"}' | python -m uv run --directory claude-memory-compiler python hooks/terminology-check.py 2>&1 && printf '{\"prompt\":\"丹药的炼制需要配方\", \"session_id\":\"t2\"}' | python -m uv run --directory claude-memory-compiler python hooks/terminology-check.py 2>&1 && printf '{\"prompt\":\"炼丹系统和丹药品质\", \"session_id\":\"t3\"}' | python -m uv run --directory claude-memory-compiler python hooks/terminology-check.py 2>&1)",
+      "Bash(rm -f .claude/terminology-watch.json)",
+      "Bash(python -c ' *)",
+      "Bash(rm -f e:/Proj/xiuxian-idle/.claude/test_terms_input.json e:/Proj/xiuxian-idle/.claude/terminology-watch.json)"
+    ],
+    "additionalDirectories": [
+      "e:\\Proj\\xiuxian-idle\\.claude"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --directory claude-memory-compiler python hooks/session-start.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -m uv run --directory claude-memory-compiler python hooks/pre-compact.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -m uv run --directory claude-memory-compiler python hooks/session-end.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -m uv run --directory claude-memory-compiler python hooks/terminology-check.py",
+            "timeout": 5,
+            "env": { "PYTHONIOENCODING": "utf-8" }
+          }
+        ]
+      }
+    ]
+  }
+}
